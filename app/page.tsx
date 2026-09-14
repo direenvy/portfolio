@@ -1,7 +1,7 @@
-import Exhibit from "@/components/Exhibit";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
+import ProjectCarousel from "@/components/ProjectCarousel";
 import Reveal from "@/components/Reveal";
 import { profile } from "@/content/profile";
 import { projects, stats, supporting } from "@/content/projects";
@@ -33,20 +33,13 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Exhibits */}
-        <section id="work" style={{ paddingTop: "var(--section-gap)" }}>
-          <div className="mx-auto px-5 reveal" style={{ maxWidth: "var(--content-max-width)", marginBottom: 80 }}>
-            <h2 className="heading-lg">Four systems.</h2>
-            <p className="lead muted" style={{ marginTop: 20, maxWidth: 620 }}>
-              Each one covers a category employers screen for, and each was measured before it was allowed to claim anything.
-              The decision worth explaining is on every page — including the ones that went the other way.
-            </p>
+        {/* Projects */}
+        <section id="work" className="mx-auto px-5 reveal" style={{ maxWidth: "var(--page-max-width)", paddingTop: "var(--section-gap)" }}>
+          <div className="flex items-baseline justify-between caption" style={{ letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--ink)", paddingBottom: 14, borderBottom: "1px solid var(--ash)", marginBottom: 32 }}>
+            <span>Projects</span>
+            <span className="muted">2026</span>
           </div>
-          <div className="flex flex-col" style={{ gap: "var(--section-gap)" }}>
-            {projects.map((p, i) => (
-              <Exhibit key={p.slug} project={p} index={i} priority={i === 0} />
-            ))}
-          </div>
+          <ProjectCarousel projects={projects} />
         </section>
 
         {/* Supporting work */}
