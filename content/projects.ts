@@ -2,6 +2,8 @@ export type Project = {
   slug: string;
   name: string;
   category: string;
+  /** Short label used by the filter on /projects. */
+  group: string;
   headline: string;
   oneLine: string;
   result: { value: string; label: string };
@@ -21,6 +23,7 @@ export const projects: Project[] = [
     slug: "sentinel",
     name: "Sentinel",
     category: "Tabular machine learning",
+    group: "Machine learning",
     headline: "Fraud scoring you can interrogate",
     oneLine:
       "A gradient-boosted classifier trained on 284,807 real card transactions, served over an API, with the features that drove every score.",
@@ -59,6 +62,7 @@ export const projects: Project[] = [
     slug: "sitewatch",
     name: "Sitewatch",
     category: "Computer vision",
+    group: "Computer vision",
     headline: "Spot the head without a hard hat",
     oneLine:
       "A YOLO11n detector fine-tuned on 19,745 construction-site photos, with the confidence threshold tuned for the error that actually costs something: a missed violation.",
@@ -96,6 +100,7 @@ export const projects: Project[] = [
     slug: "trackside",
     name: "Trackside",
     category: "Data collection and analysis",
+    group: "Data analysis",
     headline: "Does a rail station nearby raise property prices?",
     oneLine:
       "120,153 registered Klang Valley property transactions, 215 stations scraped from Wikipedia, 5,260 schemes geocoded, and a regression that holds neighbourhood, type, tenure, year, size and floor level fixed.",
@@ -133,6 +138,7 @@ export const projects: Project[] = [
     slug: "kaunter",
     name: "Kaunter",
     category: "Retrieval-augmented answering",
+    group: "Language",
     headline: "A Rapid KL help counter that shows its sources",
     oneLine:
       "Bilingual retrieval over 38 official Prasarana documents — measured on a hand-built question set before it was allowed to answer anything. Every sentence cited; every quote checked against its source.",
@@ -168,22 +174,46 @@ export const projects: Project[] = [
   },
 ];
 
-export const supporting = [
+export type Supporting = {
+  name: string;
+  group: string;
+  category: string;
+  note: string;
+  repo: string;
+  live?: string;
+  image: string;
+  /** Screenshots are cropped; figures are shown whole on white. */
+  fit: "cover" | "contain";
+};
+
+export const supporting: Supporting[] = [
   {
     name: "LRT Companion",
-    note: "Final-year project — an agentic system for Klang Valley rail disruptions: detection from commuter reports, disruption-aware rerouting, voice, and the retrieval work Kaunter grew out of.",
+    group: "Agentic AI",
+    category: "Final-year project",
+    note: "An agentic system for Klang Valley rail disruptions: detection from commuter reports, disruption-aware rerouting, voice, and the retrieval work Kaunter grew out of.",
     repo: "https://github.com/direenvy/lrtcompanion",
     live: "https://lrtcompanionapp.vercel.app",
+    image: "/projects/lrtcompanion.png",
+    fit: "cover",
   },
   {
     name: "TXSA",
-    note: "Text and speech analytics coursework in two parts.",
+    group: "Language",
+    category: "Coursework · Text and speech analytics",
+    note: "Tokenisation, stemming, parsing and n-gram models, then four classifiers tuned and compared on a six-emotion text dataset.",
     repo: "https://github.com/direenvy/TXSA",
+    image: "/projects/txsa.png",
+    fit: "contain",
   },
   {
     name: "AI-Methods",
-    note: "Particle swarm optimisation coursework.",
+    group: "Machine learning",
+    category: "Coursework · Optimisation",
+    note: "Particle swarm optimisation from scratch: a swarm of candidate solutions moving over an objective surface without computing a gradient.",
     repo: "https://github.com/direenvy/AI-Methods",
+    image: "/projects/ai-methods.png",
+    fit: "contain",
   },
 ];
 

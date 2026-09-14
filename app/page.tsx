@@ -1,10 +1,11 @@
+import Link from "next/link";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
 import ProjectCarousel from "@/components/ProjectCarousel";
 import Reveal from "@/components/Reveal";
 import { profile } from "@/content/profile";
-import { projects, stats, supporting } from "@/content/projects";
+import { projects, stats } from "@/content/projects";
 
 export default function Home() {
   return (
@@ -37,34 +38,11 @@ export default function Home() {
         <section id="work" className="mx-auto px-5 reveal" style={{ maxWidth: "var(--page-max-width)", paddingTop: "var(--section-gap)" }}>
           <div className="flex items-baseline justify-between caption" style={{ letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--ink)", paddingBottom: 14, borderBottom: "1px solid var(--ash)", marginBottom: 32 }}>
             <span>Projects</span>
-            <span className="muted">2026</span>
+            <Link href="/projects" className="link" style={{ letterSpacing: "0.08em" }}>
+              All projects ›
+            </Link>
           </div>
           <ProjectCarousel projects={projects} />
-        </section>
-
-        {/* Supporting work */}
-        <section className="mx-auto px-5 reveal" style={{ maxWidth: "var(--content-max-width)", paddingTop: "var(--section-gap)" }}>
-          <h2 className="heading">Also.</h2>
-          <div className="grid gap-4 md:grid-cols-3" style={{ marginTop: 40 }}>
-            {supporting.map((s) => (
-              <div key={s.name} className="card" style={{ padding: 28 }}>
-                <h3 className="label">{s.name}</h3>
-                <p className="muted" style={{ fontSize: 15, lineHeight: 1.47, marginTop: 10, minHeight: 66 }}>
-                  {s.note}
-                </p>
-                <div className="flex gap-4" style={{ marginTop: 16, fontSize: 15 }}>
-                  {s.live && (
-                    <a href={s.live} target="_blank" rel="noreferrer" className="link">
-                      Live ↗
-                    </a>
-                  )}
-                  <a href={s.repo} target="_blank" rel="noreferrer" className="link">
-                    Repository ↗
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
         </section>
 
         {/* About */}

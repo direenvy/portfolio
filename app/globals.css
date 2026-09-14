@@ -236,9 +236,128 @@ body {
   }
 }
 
+/* /projects: a segmented filter and a grid of tiles. On hover the
+   screenshot eases up and an ink veil rises with the description; the name
+   stays visible beneath the tile so nothing depends on hovering. */
+.segmented {
+  display: inline-flex;
+  gap: 2px;
+  max-width: 100%;
+  overflow-x: auto;
+  background: var(--ash);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  scrollbar-width: none;
+}
+
+.segmented::-webkit-scrollbar {
+  display: none;
+}
+
+.segmented button {
+  flex: none;
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: var(--graphite);
+  white-space: nowrap;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.segmented button:hover {
+  color: var(--ink);
+}
+
+.segmented button[aria-pressed="true"] {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.tile-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-cards);
+  overflow: hidden;
+  background: var(--white);
+}
+
+.tile-media img {
+  transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.tile-media:hover img,
+.tile-media:focus-visible img {
+  transform: scale(1.03);
+}
+
+.tile-veil {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  color: #f5f5f7;
+  background: linear-gradient(to top, rgba(29, 29, 31, 0.9) 0%, rgba(29, 29, 31, 0.6) 45%, rgba(29, 29, 31, 0) 100%);
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+
+.tile-media:hover .tile-veil,
+.tile-media:focus-visible .tile-veil {
+  opacity: 1;
+}
+
+.tile-arrow {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 18px;
+  transform: translateY(-8px);
+  transition: transform 320ms ease;
+}
+
+.tile-media:hover .tile-arrow,
+.tile-media:focus-visible .tile-arrow {
+  transform: none;
+}
+
+.tile-in {
+  animation: tile-in 480ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes tile-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .carousel-slide {
+  .carousel-slide,
+  .tile-in {
     animation: none;
+  }
+  .tile-media img {
+    transition: none;
+  }
+  .tile-media:hover img,
+  .tile-media:focus-visible img {
+    transform: none;
   }
   .reveal {
     opacity: 1;

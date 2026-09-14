@@ -9,11 +9,10 @@ const INTERVAL = 7000;
 
 /* One ink card that pages through the projects: counter, category, name,
    description and stack on the left; the interface in a browser frame on the
-   right; dots, arrows and a "view all" toggle underneath. Auto-advances,
+   right; dots, arrows and a link to the full list underneath. Auto-advances,
    pauses on hover or focus, and respects reduced motion. */
 export default function ProjectCarousel({ projects }: { projects: Project[] }) {
   const [index, setIndex] = useState(0);
-  const [showAll, setShowAll] = useState(false);
   const [paused, setPaused] = useState(false);
   const reduce = useRef(false);
 
@@ -24,17 +23,16 @@ export default function ProjectCarousel({ projects }: { projects: Project[] }) {
   const go = useCallback((i: number) => setIndex(((i % projects.length) + projects.length) % projects.length), [projects.length]);
 
   useEffect(() => {
-    if (paused || showAll || reduce.current) return;
+    if (paused || reduce.current) return;
     const t = setInterval(() => setIndex((i) => (i + 1) % projects.length), INTERVAL);
     return () => clearInterval(t);
-  }, [paused, showAll, projects.length]);
+  }, [paused, projects.length]);
 
   const p = projects[index];
 
   return (
-    <div>
-      <div
-        className="relative"
+    <div
+      className="relative"
         style={{ background: "var(--ink)", borderRadius: "var(--radius-cards)", padding: "clamp(28px, 4vw, 48px)", color: "#f5f5f7" }}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
@@ -109,39 +107,11 @@ export default function ProjectCarousel({ projects }: { projects: Project[] }) {
             <button type="button" aria-label="Next project" onClick={() => go(index + 1)} className="btn-ghost on-dark" style={{ width: 40, height: 40, padding: 0, justifyContent: "center" }}>
               ›
             </button>
-            <button type="button" onClick={() => setShowAll((v) => !v)} aria-expanded={showAll} className="btn-ghost on-dark" style={{ fontSize: 14, padding: "8px 16px" }}>
-              {showAll ? "Hide all" : "View all"}
-            </button>
+            <Link href="/projects" className="btn-ghost on-dark" style={{ fontSize: 14, padding: "8px 16px" }}>
+              View all projects
+            </Link>
           </div>
         </div>
-      </div>
-
-      {showAll && (
-        <div className="grid gap-4 md:grid-cols-2" style={{ marginTop: 16 }}>
-          {projects.map((q, i) => (
-            <Link key={q.slug} href={`/projects/${q.slug}`} className="card block" style={{ padding: 20 }}>
-              <div className="relative" style={{ aspectRatio: "16 / 10", borderRadius: 18, overflow: "hidden" }}>
-                <Image src={q.image} alt={`${q.name} interface`} fill sizes="(max-width: 768px) 100vw, 500px" style={{ objectFit: "cover", objectPosition: "top" }} />
-              </div>
-              <div className="flex items-baseline justify-between" style={{ marginTop: 16 }}>
-                <span className="label">{q.name}</span>
-                <span className="caption muted">
-                  {String(i + 1).padStart(2, "0")} · {q.category}
-                </span>
-              </div>
-              <p className="muted" style={{ fontSize: 15, lineHeight: 1.47, marginTop: 6 }}>
-                {q.headline}
-              </p>
-              <p className="numeral" style={{ fontSize: 24, marginTop: 12 }}>
-                {q.result.value}
-                <span className="muted" style={{ fontSize: 13, fontWeight: 400, marginLeft: 8, fontFamily: "var(--font-inter)" }}>
-                  {q.result.label}
-                </span>
-              </p>
-            </Link>
-          ))}
-        </div>
-      )}
     </div>
   );
 }

@@ -136,8 +136,8 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           </Section>
 
           <div className="reveal flex flex-col gap-4 md:flex-row md:items-center md:justify-between" style={{ paddingTop: 100 }}>
-            <Link href="/#work" className="link" style={{ fontSize: 17 }}>
-              ‹ All work
+            <Link href="/projects" className="link" style={{ fontSize: 17 }}>
+              ‹ All projects
             </Link>
             <Link href={`/projects/${next.slug}`} className="btn-ghost">
               Next: {next.name} ›

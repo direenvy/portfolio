@@ -3,16 +3,21 @@
 The site at the front of four projects — Sentinel, Sitewatch, Trackside and Kaunter — each
 built, measured and documented before it was allowed on this page.
 
-![Home page: the headline "Models that show their working" above a framed montage of the four projects in use](docs/hero.png)
+![Home page: the introduction above a framed montage of the four projects in use](docs/hero.png)
 
 ## What's on it
 
-- **Home** — a looping, muted montage of the four apps recorded from the running software
-  (no stock footage), the work in four numbers, one exhibit per project with its single most
-  interesting result, supporting work, and contact.
+- **Home** — an introduction, a looping, muted montage of the four apps recorded from the
+  running software (no stock footage), the work in four numbers, a featured carousel that
+  pages through the four projects, and contact.
+- **All projects** (`/projects`) — everything in one place: a filter by area and a grid of
+  tiles, the four systems alongside the final-year project they grew out of and the
+  coursework before that. Hover a tile and it tells you what the project found.
 - **One page per project** (`/projects/<slug>`) — the problem, the approach, the numbers,
   the decision worth explaining, and what it doesn't do. Every figure comes from that
   project's README; nothing on this site is quoted that wasn't measured there.
+
+![All projects: a segmented filter above a three-column grid of project tiles, one showing its hover description](docs/projects.png)
 
 ![Project page for Kaunter: headline, stack chips, the interface screenshot and the structured sections](docs/project.png)
 
@@ -37,7 +42,8 @@ npm install && npm run dev
 ```
 
 Static export: every page is prerendered at build time. Content lives in `content/` —
-`profile.ts` for the person, `projects.ts` for the four exhibits and the supporting work.
+`profile.ts` for the person, `projects.ts` for the four case studies and the supporting work
+(each with a `group` that drives the filter on `/projects`).
 
 ## Deploy
 

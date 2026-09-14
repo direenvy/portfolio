@@ -14,8 +14,8 @@ export default function Nav() {
           {profile.name}
         </Link>
         <div className="flex items-center gap-6" style={{ fontSize: 12, letterSpacing: "-0.01em" }}>
-          <Link href="/#work" style={{ color: "#f5f5f7" }}>
-            Work
+          <Link href="/projects" style={{ color: "#f5f5f7" }}>
+            Projects
           </Link>
           <Link href="/#about" style={{ color: "#f5f5f7" }}>
             About
