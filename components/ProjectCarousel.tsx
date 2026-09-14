@@ -68,6 +68,11 @@ export default function ProjectCarousel({ projects }: { projects: Project[] }) {
               <Link href={`/projects/${p.slug}`} className="btn-ghost on-dark">
                 Read more
               </Link>
+              {p.live && (
+                <a href={p.live} target="_blank" rel="noreferrer" style={{ color: "#f5f5f7", textDecoration: "underline", textUnderlineOffset: 4 }}>
+                  Live ↗
+                </a>
+              )}
               <a href={p.repo} target="_blank" rel="noreferrer" style={{ color: "#f5f5f7", textDecoration: "underline", textUnderlineOffset: 4 }}>
                 Repository ↗
               </a>

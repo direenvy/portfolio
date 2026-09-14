@@ -9,6 +9,8 @@ export type Project = {
   result: { value: string; label: string };
   stack: string[];
   repo: string;
+  /** Live demo, once deployed. Shown wherever the repository link is. */
+  live?: string;
   image: string;
   extraImage?: { src: string; alt: string };
   problem: string;

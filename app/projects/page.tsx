@@ -27,6 +27,7 @@ export default function ProjectsPage() {
       fit: "cover",
       links: [
         { label: "Case study ›", href: `/projects/${p.slug}`, external: false },
+        ...(p.live ? [{ label: "Live ↗", href: p.live, external: true }] : []),
         { label: "Repository ↗", href: p.repo, external: true },
       ],
     })),

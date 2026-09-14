@@ -52,7 +52,12 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
             {p.oneLine}
           </p>
           <div className="flex flex-wrap items-center gap-4" style={{ marginTop: 32 }}>
-            <a href={p.repo} target="_blank" rel="noreferrer" className="btn-primary">
+            {p.live && (
+              <a href={p.live} target="_blank" rel="noreferrer" className="btn-primary">
+                Open the live demo
+              </a>
+            )}
+            <a href={p.repo} target="_blank" rel="noreferrer" className={p.live ? "btn-ghost" : "btn-primary"}>
               View the repository
             </a>
             <div className="flex flex-wrap gap-2">
