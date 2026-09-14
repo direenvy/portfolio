@@ -16,5 +16,5 @@ export const profile = {
   email: "limhoong888@gmail.com",
   linkedin: "https://www.linkedin.com/in/yio-lim-hoong-9ba7821a5/",
   // Portrait for the About section, in public/. Leave empty to hide it.
-  portrait: "",
+  portrait: "/portrait.jpg",
 };

@@ -9,6 +9,7 @@ const inter = Inter({ variable: "--font-inter", subsets: ["latin"], weight: ["40
 const interTight = Inter_Tight({ variable: "--font-inter-tight", subsets: ["latin"], weight: ["600"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://portfolio-skymisty01.vercel.app"),
   title: `${profile.name} — ${profile.role}`,
   description: profile.intro,
   openGraph: {
