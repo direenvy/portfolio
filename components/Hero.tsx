@@ -8,18 +8,25 @@ export default function Hero() {
   return (
     <section className="relative w-full overflow-hidden" style={{ background: "var(--canvas)", paddingTop: 140 }}>
       <div className="mx-auto px-5 text-center" style={{ maxWidth: "var(--content-max-width)" }}>
-        <p className="label" style={{ marginBottom: 20 }}>
-          {profile.name} · {profile.role}
+        <span className="chip" style={{ marginBottom: 24 }}>
+          <span aria-hidden="true" style={{ width: 6, height: 6, borderRadius: 999, background: "var(--ink)", marginRight: 8 }} />
+          {profile.availability}
+        </span>
+        <p className="label" style={{ marginBottom: 16 }}>
+          {profile.greeting}
         </p>
         <h1 className="display mx-auto" style={{ maxWidth: 1000 }}>
-          {profile.tagline}
+          {profile.headline}
         </h1>
-        <p className="muted mx-auto" style={{ fontSize: 20, lineHeight: 1.47, letterSpacing: "-0.01em", marginTop: 24, maxWidth: 640 }}>
-          Four systems — fraud, computer vision, geospatial analysis and retrieval — each shipped with an interface, an honest evaluation, and a README that says what it doesn&apos;t do.
+        <p className="muted mx-auto" style={{ fontSize: 20, lineHeight: 1.47, letterSpacing: "-0.01em", marginTop: 24, maxWidth: 680 }}>
+          {profile.intro}
         </p>
         <div className="flex flex-wrap items-center justify-center gap-4" style={{ marginTop: 32 }}>
           <a href="#work" className="btn-primary">
             See the work
+          </a>
+          <a href={`mailto:${profile.email}`} className="btn-ghost">
+            Get in touch
           </a>
           <a href={profile.github} target="_blank" rel="noreferrer" className="link" style={{ fontSize: 17 }}>
             GitHub ↗

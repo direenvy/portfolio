@@ -75,7 +75,7 @@ export default function Home() {
             </div>
             <div>
               <p className="lead" style={{ color: "var(--ink)" }}>
-                {profile.intro}
+                {profile.about}
               </p>
               <p className="muted" style={{ marginTop: 24 }}>
                 {profile.education}. Based in {profile.location}.

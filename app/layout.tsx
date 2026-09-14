@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: profile.intro,
   openGraph: {
     title: `${profile.name} — ${profile.role}`,
-    description: profile.tagline,
+    description: profile.headline,
     images: ["/hero.jpg"],
   },
 };
