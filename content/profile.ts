@@ -6,7 +6,7 @@ export const profile = {
   greeting: "Hi, I'm Yio Lim Hoong.",
   headline: "I build AI that shows its working.",
   intro:
-    "Machine-learning and data engineer from Kuala Lumpur, trained in Computer Science (Artificial Intelligence) at Asia Pacific University. I take a model from raw data to a working product — training, evaluation, API and interface — and I'd rather ship an honest number than a flattering one.",
+    "ML and data engineer from Kuala Lumpur, trained in AI at Asia Pacific University. I take models from raw data to working products, and I'd rather ship an honest number than a flattering one.",
   // About section
   about:
     "I build machine-learning systems and measure them before I trust them — fraud scoring, computer vision, geospatial analysis and retrieval over official documents, each shipped with an interface, an honest evaluation and a README that says what it doesn't do.",
