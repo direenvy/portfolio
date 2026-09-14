@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
@@ -50,6 +51,11 @@ export default function Home() {
           <div className="grid gap-10 md:grid-cols-[1fr_1.4fr]">
             <div>
               <h2 className="heading">About.</h2>
+              {profile.portrait && (
+                <div className="frame" style={{ aspectRatio: "4 / 5", maxWidth: 320, marginTop: 32, position: "relative" }}>
+                  <Image src={profile.portrait} alt={`${profile.name}, portrait`} fill sizes="(max-width: 768px) 80vw, 320px" style={{ objectFit: "cover", objectPosition: "top" }} />
+                </div>
+              )}
             </div>
             <div>
               <p className="lead" style={{ color: "var(--ink)" }}>

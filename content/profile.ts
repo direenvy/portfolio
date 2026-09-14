@@ -14,6 +14,7 @@ export const profile = {
   education: "BSc (Hons) Computer Science (Artificial Intelligence), Asia Pacific University of Technology & Innovation",
   github: "https://github.com/direenvy",
   email: "limhoong888@gmail.com",
-  // TODO: owner to supply their LinkedIn URL; the link is hidden until this is set.
-  linkedin: "",
+  linkedin: "https://www.linkedin.com/in/yio-lim-hoong-9ba7821a5/",
+  // Portrait for the About section, in public/. Leave empty to hide it.
+  portrait: "",
 };
