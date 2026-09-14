@@ -11,7 +11,9 @@ built, measured and documented before it was allowed on this page.
 
 - **Home** — an introduction, a looping, muted montage of the four apps recorded from the
   running software (no stock footage), the work in four numbers, a featured carousel that
-  pages through the four projects, and contact.
+  pages through the four projects, About with a portrait and contact, and Experience
+  (internships and certifications, as listed on LinkedIn — no role descriptions are
+  invented).
 - **All projects** (`/projects`) — everything in one place: a filter by area and a grid of
   tiles, the four systems alongside the final-year project they grew out of and the
   coursework before that. Hover a tile and it tells you what the project found.
@@ -45,7 +47,11 @@ npm install && npm run dev
 
 Static export: every page is prerendered at build time. Content lives in `content/` —
 `profile.ts` for the person, `projects.ts` for the four case studies and the supporting work
-(each with a `group` that drives the filter on `/projects`).
+(each with a `group` that drives the filter on `/projects`), `experience.ts` for roles and
+certifications.
+
+Employer marks in `public/logos/` identify past employers and remain their trademarks; the
+Allianz mark is the public-domain vector from Wikimedia Commons.
 
 ## Deploy
 

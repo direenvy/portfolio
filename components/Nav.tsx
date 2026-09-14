@@ -20,6 +20,9 @@ export default function Nav() {
           <Link href="/#about" style={{ color: "#f5f5f7" }}>
             About
           </Link>
+          <Link href="/#experience" style={{ color: "#f5f5f7" }}>
+            Experience
+          </Link>
           <a href={profile.github} target="_blank" rel="noreferrer" style={{ color: "#f5f5f7" }}>
             GitHub
           </a>

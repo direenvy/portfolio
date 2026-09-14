@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Experience from "@/components/Experience";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
@@ -80,6 +81,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <Experience />
       </main>
       <div style={{ paddingTop: "var(--section-gap)" }}>
         <Footer />
