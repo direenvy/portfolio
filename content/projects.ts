@@ -28,7 +28,7 @@ export const projects: Project[] = [
     oneLine:
       "A gradient-boosted classifier trained on 284,807 real card transactions, served over an API, with the features that drove every score.",
     result: { value: "79 of 98", label: "frauds caught with 12 false alarms across 56,864 legitimate transactions" },
-    stack: ["scikit-learn", "FastAPI", "Next.js"],
+    stack: ["scikit-learn", "MLflow", "FastAPI", "Docker", "Next.js"],
     repo: "https://github.com/direenvy/sentinel",
     image: "/projects/sentinel.png",
     extraImage: { src: "/projects/sentinel-performance.png", alt: "Sentinel model card: PR-AUC 0.866, ROC-AUC 0.970, the precision-recall curve with the operating point marked, the confusion matrix and the candidate leaderboard" },
@@ -39,6 +39,7 @@ export const projects: Project[] = [
       "Decision threshold tuned on validation (0.195), then reported once on an untouched test split of 56,962 transactions.",
       "Every score is explained by ablation — each feature replaced by its training median, the change in fraud probability recorded — and the API returns the explanation with the score.",
       "FastAPI endpoint; Next.js interface that scores transactions the model has never seen and plots the full precision–recall curve so the threshold is a visible dial.",
+      "Reproducible by construction: one seed, every run tracked in MLflow, and a CI job that retrains from scratch on every push and fails the build if PR-AUC drops below 0.85 or drifts more than 0.01 from the committed model. Retraining reproduced the committed artefacts byte for byte.",
     ],
     numbers: [
       { label: "PR-AUC, test split", value: "0.866" },
