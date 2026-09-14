@@ -1,12 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
-import Experience from "@/components/Experience";
+import About from "@/components/About";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
 import ProjectCarousel from "@/components/ProjectCarousel";
 import Reveal from "@/components/Reveal";
-import { profile } from "@/content/profile";
 import { projects, stats } from "@/content/projects";
 
 export default function Home() {
@@ -47,42 +45,7 @@ export default function Home() {
           <ProjectCarousel projects={projects} />
         </section>
 
-        {/* About */}
-        <section id="about" className="mx-auto px-5 reveal" style={{ maxWidth: "var(--content-max-width)", paddingTop: "var(--section-gap)" }}>
-          <div className="grid gap-10 md:grid-cols-[1fr_1.4fr]">
-            <div>
-              <h2 className="heading">About.</h2>
-              {profile.portrait && (
-                <div className="frame" style={{ aspectRatio: "4 / 5", maxWidth: 320, marginTop: 32, position: "relative" }}>
-                  <Image src={profile.portrait} alt={`${profile.name}, portrait`} fill sizes="(max-width: 768px) 80vw, 320px" style={{ objectFit: "cover", objectPosition: "top" }} />
-                </div>
-              )}
-            </div>
-            <div>
-              <p className="lead" style={{ color: "var(--ink)" }}>
-                {profile.about}
-              </p>
-              <p className="muted" style={{ marginTop: 24 }}>
-                {profile.education}. Based in {profile.location}.
-              </p>
-              <div className="flex flex-wrap items-center gap-4" style={{ marginTop: 32 }}>
-                <a href={`mailto:${profile.email}`} className="btn-primary">
-                  Email me
-                </a>
-                <a href={profile.github} target="_blank" rel="noreferrer" className="btn-ghost">
-                  GitHub
-                </a>
-                {profile.linkedin && (
-                  <a href={profile.linkedin} target="_blank" rel="noreferrer" className="btn-ghost">
-                    LinkedIn
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <Experience />
+        <About />
       </main>
       <div style={{ paddingTop: "var(--section-gap)" }}>
         <Footer />

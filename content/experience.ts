@@ -3,43 +3,36 @@
    invented here — add a `summary` line to an entry when there is one to add. */
 
 export type Experience = {
+  period: string;
   role: string;
   org: string;
   type: string;
-  start: string;
-  end: string;
   location: string;
-  /** SVG/PNG in public/. When absent, `monogram` is drawn instead. */
+  /** Small employer mark shown at the end of the row, in public/. */
   logo?: string;
-  monogram?: string;
   summary?: string;
-  skills?: string[];
 };
 
 export const experience: Experience[] = [
   {
+    period: "Sep 2025 – Jan 2026",
     role: "Digital Transformation Intern",
     org: "Allianz Technology",
     type: "Internship",
-    start: "Sep 2025",
-    end: "Jan 2026",
-    location: "Kuala Lumpur · on-site",
+    location: "Kuala Lumpur",
     logo: "/logos/allianz.svg",
   },
   {
+    period: "May – Jul 2024",
     role: "Software Developer",
     org: "Centric Soft Tech Sdn Bhd",
     type: "Internship",
-    start: "May 2024",
-    end: "Jul 2024",
-    location: "Malaysia · on-site",
-    monogram: "CS",
-    skills: ["Software development", "Web development"],
+    location: "Malaysia",
   },
 ];
 
 export const certifications = [
-  { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", year: "2026" },
-  { name: "AWS Academy Graduate — Generative AI Foundations", issuer: "Amazon Web Services", year: "2025" },
-  { name: "AWS Academy Graduate — Machine Learning Foundations", issuer: "Amazon Web Services", year: "2025" },
+  { period: "2026", name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services" },
+  { period: "2025", name: "AWS Academy Graduate — Generative AI Foundations", issuer: "Amazon Web Services" },
+  { period: "2025", name: "AWS Academy Graduate — Machine Learning Foundations", issuer: "Amazon Web Services" },
 ];

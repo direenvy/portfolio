@@ -11,9 +11,9 @@ built, measured and documented before it was allowed on this page.
 
 - **Home** — an introduction, a looping, muted montage of the four apps recorded from the
   running software (no stock footage), the work in four numbers, a featured carousel that
-  pages through the four projects, About with a portrait and contact, and Experience
-  (internships and certifications, as listed on LinkedIn — no role descriptions are
-  invented).
+  pages through the four projects, and About — portrait, contact, then experience and
+  certifications as spec-style rows, exactly as listed on LinkedIn (no role descriptions
+  are invented).
 - **All projects** (`/projects`) — everything in one place: a filter by area and a grid of
   tiles, the four systems alongside the final-year project they grew out of and the
   coursework before that. Hover a tile and it tells you what the project found.
