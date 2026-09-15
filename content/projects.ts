@@ -195,7 +195,7 @@ export const projects: Project[] = [
     approach: [
       "Ingest: fetch the parquet daily, hash it, and store it only if the bytes are new — a manifest of every distinct snapshot ever seen.",
       "Validate: eleven checks with severities. Errors (schema, duplicate or missing days, negatives, a shrunken snapshot) fail the run and publish nothing; warnings (freshness over 45 days, silent zeros, outliers) publish and stay visible on the page.",
-      "Outliers are judged against the median of the same weekday over the previous eight weeks, because ridership drops 40% at weekends and a day-over-day rule would flag every Saturday.",
+      "Outliers are judged against the median of the same weekday over the previous eight weeks, because ridership drops by a quarter to a third at weekends and a day-over-day rule would flag every Saturday.",
       "Transform: wide to long parquet, DuckDB for the aggregation, JSON marts committed next to a static Next.js dashboard that Vercel rebuilds on the data commit. The repository is the database and git log is the audit trail.",
     ],
     numbers: [
