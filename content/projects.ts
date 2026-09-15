@@ -227,6 +227,7 @@ export const projects: Project[] = [
     result: { value: "MASE 0.77", label: "against 1.30 for copying last week; the calendar accounts for most of the gap, and the disruption days for the rest" },
     stack: ["LightGBM", "statsmodels", "holidays", "GitHub Actions", "Next.js"],
     repo: "https://github.com/direenvy/headway",
+    live: "https://headway-eta.vercel.app",
     image: "/projects/headway.png",
     extraImage: { src: "/projects/headway-loses.png", alt: "Headway's 'Where it loses' section: error by kind of day for three models, the twelve worst days with the reason where the calendar has one, and a browser over every backtest window" },
     problem:
