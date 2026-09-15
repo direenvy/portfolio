@@ -216,6 +216,45 @@ export const projects: Project[] = [
       "Alerting is a failed GitHub Actions run and the email that follows; there is no pager, and nothing retries.",
     ],
   },
+  {
+    slug: "headway",
+    name: "Headway",
+    category: "Time series",
+    group: "Forecasting",
+    headline: "Fourteen days of ridership, forecast and scored honestly",
+    oneLine:
+      "A 14-day forecast for every rail and bus line in Turnstile's checked data — twelve lines, 260,000 trips a day down to 3,000 — backtested over 52 weeks against the seasonal naive, and taken apart by kind of day to show where it wins and where nothing does.",
+    result: { value: "MASE 0.77", label: "against 1.30 for copying last week; the calendar accounts for most of the gap, and the disruption days for the rest" },
+    stack: ["LightGBM", "statsmodels", "holidays", "GitHub Actions", "Next.js"],
+    repo: "https://github.com/direenvy/headway",
+    image: "/projects/headway.png",
+    extraImage: { src: "/projects/headway-loses.png", alt: "Headway's 'Where it loses' section: error by kind of day for three models, the twelve worst days with the reason where the calendar has one, and a browser over every backtest window" },
+    problem:
+      "A forecast is easy to make and easy to flatter. The question is whether it beats the thing a planner already does — assume next Tuesday looks like last Tuesday — and on which days it doesn't. Ridership has a strong weekly cycle, public holidays that move with the lunar calendar, and disruptions that no history predicts.",
+    approach: [
+      "Rolling-origin backtest: 26 origins, one every fourteen days over the last 52 weeks. Every model sees only what it could have seen and forecasts the next fourteen days; 4,368 scored days per model.",
+      "Three baselines — seasonal naive, the four-week weekday mean, Holt-Winters ETS — against one global LightGBM over all twelve lines, trained on log ratios to a 28-day level so a 190,000-trip line and a 3,000-trip one share a model. Same-weekday lags chosen per horizon, plus each line's own state public-holiday calendar.",
+      "MASE as the headline: error relative to the in-sample seasonal naive, so 1.00 means 'no better than last week' and lines of any size compare. WAPE alongside because it is the number a planner would quote.",
+      "Every scored day labelled — weekday, weekend, holiday, holiday-adjacent, flagged by Turnstile's outlier rule — and the error reported per label. The dashboard's 80% band is the backtest's own error quantiles at each horizon, not a formula's.",
+    ],
+    numbers: [
+      { label: "LightGBM · MASE", value: "0.77 · WAPE 5.0%" },
+      { label: "Seasonal naive · MASE", value: "1.30 · WAPE 9.7%" },
+      { label: "Beats the naive on", value: "12 of 12 lines" },
+      { label: "Holiday error, with vs without the calendar", value: "11.5% vs 50.0%" },
+      { label: "Worst day", value: "231% off, a flagged disruption" },
+    ],
+    decision: {
+      title: "The calendar is most of the model",
+      body: "Remove the public-holiday features and LightGBM's MASE goes from 0.77 to 0.98 — from a clear win over the naive to roughly the weekday mean. The whole difference sits on 271 holiday days out of 4,368: 11.5% error with the calendar, 50% without, which is the same 50% the naive gets, because a model that does not know Thursday is Hari Raya predicts a Thursday. ETS, which has no calendar either, is the best model at one day ahead (0.63 to LightGBM's 0.66) and loses every day after. And the worst miss of all — MRT Putrajaya at 32,971 trips on a Saturday forecast at 109,105 — is the disruption Turnstile's outlier rule flagged; the sixteen flagged days sit at 95% error for every model, and the page says so rather than hiding them in an average.",
+    },
+    limits: [
+      "Every origin is a Friday, so horizon 1 is always a Saturday: the error-by-horizon chart is partly an error-by-weekday chart.",
+      "Public holidays only. School holidays, Ramadan and bridging days are not in the calendar; the 10.8% error on holiday-adjacent days is where they show.",
+      "Disruptions, fare changes and new stations are invisible to a model of ridership history. Seven of the twelve worst days are KTM Intercity, at 3,000 trips a day the smallest service, where a few hundred trips is a large percentage and nothing in the calendar explains them.",
+      "One 80% band per horizon, pooled across lines: right on average, too narrow for the small services and too wide for the large ones.",
+    ],
+  },
 ];
 
 export type Supporting = {
@@ -267,4 +306,5 @@ export const stats = [
   { value: "120,153", label: "property sales placed on a map" },
   { value: "119", label: "hand-labelled questions before a model answered one" },
   { value: "11", label: "checks a ridership feed passes before it is published" },
+  { value: "0.77", label: "MASE on a 14-day forecast, against 1.30 for copying last week" },
 ];
