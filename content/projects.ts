@@ -32,6 +32,7 @@ export const projects: Project[] = [
     result: { value: "79 of 98", label: "frauds caught with 12 false alarms across 56,864 legitimate transactions" },
     stack: ["scikit-learn", "MLflow", "FastAPI", "Docker", "Next.js"],
     repo: "https://github.com/direenvy/sentinel",
+    live: "https://sentinel-n3m9.vercel.app",
     image: "/projects/sentinel.png",
     extraImage: { src: "/projects/sentinel-performance.png", alt: "Sentinel model card: PR-AUC 0.866, ROC-AUC 0.970, the precision-recall curve with the operating point marked, the confusion matrix and the candidate leaderboard" },
     problem:
@@ -186,6 +187,7 @@ export const projects: Project[] = [
     result: { value: "11 checks", label: "on every run; the first one found a retired bus service, a metro disruption and a line opening in the history" },
     stack: ["pandas", "DuckDB", "GitHub Actions", "Next.js"],
     repo: "https://github.com/direenvy/turnstile",
+    live: "https://turnstile-tawny.vercel.app",
     image: "/projects/turnstile.png",
     extraImage: { src: "/projects/turnstile-quality.png", alt: "Turnstile's quality section: the eleven checks with their result, outliers by year, and the most recent outliers against their same-weekday baselines" },
     problem:
