@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: "Every project: the systems built end to end, the final-year project they grew out of, and the coursework before that.",
 };
 
-/* Everything in one place. The four systems link to their case studies; the
+/* Everything in one place. The main projects link to their case studies; the
    supporting work links out to the live app or the repository. */
 export default function ProjectsPage() {
   const tiles: Tile[] = [

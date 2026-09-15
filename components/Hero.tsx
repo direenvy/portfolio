@@ -2,7 +2,7 @@ import { profile } from "@/content/profile";
 
 /* Apple-style hero: enormous headline on the fog canvas, then the product
    floating centred beneath it — here the product is a muted, looping montage
-   of the four projects in use, in a 28px frame, with the reference's
+   of four of the projects in use, in a 28px frame, with the reference's
    iridescent light-ring as a soft glow behind it. */
 export default function Hero() {
   return (
@@ -47,7 +47,7 @@ export default function Hero() {
           }}
         />
         <div className="frame relative" style={{ aspectRatio: "16 / 10", background: "var(--white)" }}>
-          <video className="h-full w-full object-cover" autoPlay muted loop playsInline poster="/hero.jpg" aria-label="The four projects in use: Sentinel scoring a transaction, Sitewatch detecting unprotected heads, Trackside's station-premium charts, Kaunter answering with citations">
+          <video className="h-full w-full object-cover" autoPlay muted loop playsInline poster="/hero.jpg" aria-label="Four of the projects in use: Sentinel scoring a transaction, Sitewatch detecting unprotected heads, Trackside's station-premium charts, Kaunter answering with citations">
             <source src="/hero.mp4" type="video/mp4" />
           </video>
         </div>

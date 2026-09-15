@@ -21,10 +21,10 @@ export default function Home() {
             <p className="caption" style={{ color: "#86868b", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 40 }}>
               The work, in numbers
             </p>
-            <div className="grid grid-cols-2 gap-x-8 gap-y-12 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-12 lg:grid-cols-5">
               {stats.map((s) => (
                 <div key={s.label}>
-                  <div className="numeral" style={{ fontSize: "clamp(36px, 4.4vw, 64px)", lineHeight: 1, color: "#f5f5f7" }}>
+                  <div className="numeral" style={{ fontSize: "clamp(32px, 3.4vw, 52px)", lineHeight: 1, color: "#f5f5f7" }}>
                     {s.value}
                   </div>
                   <p style={{ color: "#86868b", fontSize: 17, marginTop: 12, maxWidth: 260 }}>{s.label}</p>

@@ -2,20 +2,20 @@
 
 **Live:** [portfolio-skymisty01.vercel.app](https://portfolio-skymisty01.vercel.app)
 
-The site at the front of four projects — Sentinel, Sitewatch, Trackside and Kaunter — each
-built, measured and documented before it was allowed on this page.
+The site at the front of five projects — Sentinel, Sitewatch, Trackside, Kaunter and
+Turnstile — each built, measured and documented before it was allowed on this page.
 
-![Home page: the introduction above a framed montage of the four projects in use](docs/hero.png)
+![Home page: the introduction above a framed montage of four of the projects in use](docs/hero.png)
 
 ## What's on it
 
-- **Home** — an introduction, a looping, muted montage of the four apps recorded from the
-  running software (no stock footage), the work in four numbers, a featured carousel that
-  pages through the four projects, and About — portrait, contact, then experience and
+- **Home** — an introduction, a looping, muted montage of four of the apps recorded from the
+  running software (no stock footage), the work in five numbers, a featured carousel that
+  pages through the projects, and About — portrait, contact, then experience and
   certifications as spec-style rows, exactly as listed on LinkedIn (no role descriptions
   are invented).
 - **All projects** (`/projects`) — everything in one place: a filter by area and a grid of
-  tiles, the four systems alongside the final-year project they grew out of and the
+  tiles, the five systems alongside the final-year project they grew out of and the
   coursework before that. Hover a tile and it tells you what the project found.
 - **One page per project** (`/projects/<slug>`) — the problem, the approach, the numbers,
   the decision worth explaining, and what it doesn't do. Every figure comes from that
@@ -30,7 +30,7 @@ built, measured and documented before it was allowed on this page.
 The Refero style reference **"Apple (España) — gallery vitrine in morning fog"**, kept in
 [DESIGN.md](DESIGN.md): fog-grey canvas, near-monochrome, one blue reserved for the primary
 action, Inter Tight display type at 56–96px standing in for SF Pro Display, 28px card radius,
-pill buttons, no shadows, and whitespace as the only divider. The four project interfaces
+pill buttons, no shadows, and whitespace as the only divider. The project interfaces
 use a different system (Column) on purpose: the shopfront and the exhibits are not the same
 object.
 
@@ -46,7 +46,7 @@ npm install && npm run dev
 ```
 
 Static export: every page is prerendered at build time. Content lives in `content/` —
-`profile.ts` for the person, `projects.ts` for the four case studies and the supporting work
+`profile.ts` for the person, `projects.ts` for the five case studies and the supporting work
 (each with a `group` that drives the filter on `/projects`), `experience.ts` for roles and
 certifications.
 

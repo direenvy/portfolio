@@ -175,6 +175,45 @@ export const projects: Project[] = [
       "119 questions written by the person who built the system is enough to rank configurations, not to quote recall to a second decimal place as if it generalised.",
     ],
   },
+  {
+    slug: "turnstile",
+    name: "Turnstile",
+    category: "Data engineering",
+    group: "Data engineering",
+    headline: "Ridership data, checked before it's published",
+    oneLine:
+      "A scheduled pipeline over data.gov.my's daily public-transport ridership file — 14 modes since 2019 — that keeps every snapshot, runs eleven data-quality checks, and publishes a dashboard only when they pass.",
+    result: { value: "11 checks", label: "on every run; the first one found a retired bus service, a metro disruption and a line opening in the history" },
+    stack: ["pandas", "DuckDB", "GitHub Actions", "Next.js"],
+    repo: "https://github.com/direenvy/turnstile",
+    image: "/projects/turnstile.png",
+    extraImage: { src: "/projects/turnstile-quality.png", alt: "Turnstile's quality section: the eleven checks with their result, outliers by year, and the most recent outliers against their same-weekday baselines" },
+    problem:
+      "A dashboard is only as trustworthy as the last thing that checked its data. data.gov.my publishes daily ridership monthly, after audit; services open and close; a feed can silently go to zero. A pipeline that just fetches and plots would show all of that as fact.",
+    approach: [
+      "Ingest: fetch the parquet daily, hash it, and store it only if the bytes are new — a manifest of every distinct snapshot ever seen.",
+      "Validate: eleven checks with severities. Errors (schema, duplicate or missing days, negatives, a shrunken snapshot) fail the run and publish nothing; warnings (freshness over 45 days, silent zeros, outliers) publish and stay visible on the page.",
+      "Outliers are judged against the median of the same weekday over the previous eight weeks, because ridership drops 40% at weekends and a day-over-day rule would flag every Saturday.",
+      "Transform: wide to long parquet, DuckDB for the aggregation, JSON marts committed next to a static Next.js dashboard that Vercel rebuilds on the data commit. The repository is the database and git log is the audit trail.",
+    ],
+    numbers: [
+      { label: "Daily rows checked", value: "2,769 days × 14 modes" },
+      { label: "Checks per run", value: "11" },
+      { label: "Outliers found in history", value: "742, 629 of them the 2020–21 lockdowns" },
+      { label: "MRT Putrajaya, 25 Oct 2025", value: "0.28× baseline" },
+      { label: "Tests", value: "19" },
+    ],
+    decision: {
+      title: "A flag becomes a recorded decision, not a special case",
+      body: "On the first run the silent-zero check reported that Rapid Bus Kuantan had been at zero for 229 days and could not say whether the feed had broken or the buses had stopped. The answer — the service ended on 14 December 2025 — went into the config as a retirement date with a note. The check now reads that and downgrades the finding, the dashboard marks the mode retired, and the outlier rule stops judging it after that day. Nothing in the validation code knows the name of any mode. The same run found the MRT Putrajaya line at 19% of its normal Saturday on 25 October 2025, and thirty zero days before LRT Shah Alam opened — one a disruption to surface, the other an opening to leave alone.",
+    },
+    limits: [
+      "The cadence is the publisher's: data.gov.my updates monthly, so most daily runs find nothing new and say so. The first run's data was 46 days old, which is the freshness check working on a slow source, not a fault.",
+      "Trips, not passengers — an interchange counts twice, and every figure is labelled as a trip count.",
+      "The outlier rule compares each day with the last eight weeks, so it is blind to slow drift; year-on-year on the mode cards covers that. It also cannot tell a holiday from a fault: Thaipusam and Chinese New Year appear in the list with the disruptions.",
+      "Alerting is a failed GitHub Actions run and the email that follows; there is no pager, and nothing retries.",
+    ],
+  },
 ];
 
 export type Supporting = {
@@ -225,4 +264,5 @@ export const stats = [
   { value: "19,745", label: "site photos the detector learned from" },
   { value: "120,153", label: "property sales placed on a map" },
   { value: "119", label: "hand-labelled questions before a model answered one" },
+  { value: "11", label: "checks a ridership feed passes before it is published" },
 ];
