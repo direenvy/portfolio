@@ -9,7 +9,7 @@ export const profile = {
     "ML and data engineer from Kuala Lumpur, trained in AI at Asia Pacific University. I take models from raw data to working products, and I'd rather ship an honest number than a flattering one.",
   // About section
   about:
-    "I build machine-learning and data systems and measure them before I trust them — fraud scoring, computer vision, geospatial analysis, retrieval over official documents, a checked data pipeline and a backtested forecast, each shipped with an interface, an honest evaluation and a README that says what it doesn't do.",
+    "I build machine-learning and data systems and measure them before I trust them — fraud scoring, computer vision, geospatial analysis, retrieval over official documents, a checked data pipeline, a backtested forecast and an IT audit of real change controls, each shipped with an interface, an honest evaluation and a README that says what it doesn't do.",
   location: "Kuala Lumpur, Malaysia",
   education: "BSc (Hons) Computer Science (Artificial Intelligence), Asia Pacific University of Technology & Innovation",
   github: "https://github.com/direenvy",

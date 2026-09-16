@@ -256,6 +256,45 @@ export const projects: Project[] = [
       "One 80% band per horizon, pooled across lines: right on average, too narrow for the small services and too wide for the large ones.",
     ],
   },
+  {
+    slug: "gatekeeper",
+    name: "Gatekeeper",
+    category: "IT audit",
+    group: "IT audit",
+    headline: "Change-management controls, tested on real repositories",
+    oneLine:
+      "An IT audit of change management over the default branch of fifteen GitHub repositories — seven of mine, eight well-known open-source projects: a 12,117-change population, a 461-item attribute sample, four controls mapped to COBIT, ISO 27001 and SOX, a workpaper per repository and a findings memo. The first finding is against the auditor.",
+    result: { value: "41%", label: "of sampled changes met all three change controls; three of fifteen default branches enforce the gate" },
+    stack: ["GitHub REST API", "git", "pandas", "SciPy", "Next.js"],
+    repo: "https://github.com/direenvy/gatekeeper",
+    image: "/projects/gatekeeper.png",
+    extraImage: { src: "/projects/gatekeeper-results.png", alt: "Gatekeeper's results by repository, the findings with risk ratings, and a workpaper with every item tested" },
+    problem:
+      "Change management is the IT general control every audit tests: was the change requested, reviewed by someone else, tested, and is that enforced rather than habitual? GitHub holds the evidence for all four, publicly, for every project on it. So the question can be answered properly — population, sample, test, workpaper — instead of with a questionnaire.",
+    approach: [
+      "Population: every first-parent commit on the default branch in twelve months, from a blob-less clone of each repository, so a squash, a merge commit and a direct push each count once. 12,117 changes.",
+      "Attribute sampling as the profession does it: 5% tolerable deviation, 0% expected, 95% confidence gives 59 items per repository; stratified, drawn without replacement with a recorded seed, small populations examined in full. One-sided Clopper–Pearson upper bounds on every rate.",
+      "Four controls, one test each, on the API's own evidence: the commit's associated pull request (C1), an APPROVED review before merge by a non-author (C2), every pre-merge check run passing (C3), and the branch's public rules (C4). Every response cached at fieldwork so the tests re-perform on the same bytes.",
+      "Deliverables an audit reviewer expects: a workpaper per repository with objective, population, sample, results and every item; an exceptions register; a findings memo with risk ratings and remediation; and a dashboard that browses all of it.",
+    ],
+    numbers: [
+      { label: "Population", value: "12,117 changes, 15 repositories" },
+      { label: "Sample", value: "461 items, 59 per repository" },
+      { label: "Met all three change controls", value: "41%" },
+      { label: "Branches enforcing PR + checks", value: "3 of 15" },
+      { label: "Ratings", value: "9 High · 5 Medium · 1 Low" },
+    ],
+    decision: {
+      title: "The first finding is the auditor's",
+      body: "None of my seven repositories had a protected default branch, and all 41 changes in the period were pushed straight to it — 40 by me, one by my own pipeline bot. It would have been easy to leave them out of scope or fix them before fieldwork; an audit that does either is not one. The open-source set was more interesting than expected: Flask's branch is protected in name only and 34 of 45 changes were the lead maintainer committing directly; FastAPI has the full ruleset and the lead maintainer bypassed it four times in 59; pandas shows no public rules at all yet had zero direct pushes. The settings would have ranked them wrongly in every direction, which is why the audit tests the changes. The tests themselves had to be refined against the evidence — post-merge cleanup jobs are not a gate, a cancelled run is not a failed test, a merge queue evaluates a commit the API never shows — and the README records each refinement, because a test that was tuned after seeing the results has to say so.",
+    },
+    limits: [
+      "Classic branch-protection settings are visible only to admins, so for repositories without rulesets the branch control rests on the protected flag alone.",
+      "C3 is stricter than GitHub's own required-checks logic: any pre-merge check that did not pass counts, including checks the project does not require. The workpaper names the check so a reader can judge.",
+      "Evidence is as of fieldwork; reviews dismissed or checks re-run afterwards would change what is observed. The cache preserves what was seen but is not committed (95 MB).",
+      "The open-source projects were not consulted. This is a test of public evidence against a generic control standard, not a judgement about their software; several deliberately trade formal approval for maintainer trust.",
+    ],
+  },
 ];
 
 export type Supporting = {
