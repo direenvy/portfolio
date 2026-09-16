@@ -267,6 +267,7 @@ export const projects: Project[] = [
     result: { value: "41%", label: "of sampled changes met all three change controls; three of fifteen default branches enforce the gate" },
     stack: ["GitHub REST API", "git", "pandas", "SciPy", "Next.js"],
     repo: "https://github.com/direenvy/gatekeeper",
+    live: "https://gatekeeper-nine-woad.vercel.app",
     image: "/projects/gatekeeper.png",
     extraImage: { src: "/projects/gatekeeper-results.png", alt: "Gatekeeper's results by repository, the findings with risk ratings, and a workpaper with every item tested" },
     problem:
