@@ -336,6 +336,46 @@ export const projects: Project[] = [
       "Power BI Service needs a work or school account to publish; the deliverable is the committed .pbix and the page screenshots until a published link exists.",
     ],
   },
+  {
+    slug: "farebox",
+    name: "Farebox",
+    category: "SQL analysis",
+    group: "Data analysis",
+    headline: "Six questions an operator would ask, answered in SQL",
+    oneLine:
+      "A DuckDB warehouse of seven and a half years of daily ridership for fourteen Malaysian rail and bus lines, weekly fuel prices and public holidays by state; twenty-three queries, each one a decision about capacity, timetables, possessions or contingency; a memo with three recommendations; and tests that recompute the headline numbers in pandas.",
+    result: { value: "5%", label: "of a 170,000-trip daily shortfall was absorbed by other lines when the LRT Kelana Jaya line was suspended in November 2022 — the interchange lines fell with it" },
+    stack: ["DuckDB", "SQL", "pandas", "pytest", "Next.js"],
+    repo: "https://github.com/direenvy/farebox",
+    image: "/projects/farebox.png",
+    extraImage: { src: "/projects/farebox-episodes.png", alt: "Farebox: the gaps-and-islands query that groups disrupted days into episodes, with its SQL and the resulting table" },
+    problem:
+      "Turnstile publishes a checked daily count for every line; Headway forecasts it. Neither answers the questions an operator actually has: where to put the next train set, whether Friday still needs a full timetable, when to book the track possession, how much bus-bridging to buy when a line fails, and whether a fuel-price rise fills the trains. Those are SQL questions — joins across calendars and prices, windows over time — and the answer to each is a decision, not a chart.",
+    approach: [
+      "A warehouse, not a notebook: ridership, a mode register with each line's holiday catchment and opening date, holidays per state, festivals, weekly fuel prices, and the pandemic regime, in DuckDB; a day view that attaches the calendar, and a baseline view — the median of the previous eight same weekdays as a window over PARTITION BY mode, dow — so a holiday, an outage and a festival are all read as one ratio.",
+      "Six questions in six files, twenty-three named queries with a note on the technique: LAG and FIRST_VALUE for year on year, SUM() OVER () for contributions, a self-join on date − 364 to keep weekdays aligned, conditional aggregation to pivot weekdays and festivals, before/after windows with a control line, gaps-and-islands to turn disrupted days into episodes, a correlated subquery for the first normal day after, an ASOF JOIN for the fuel price in force, and corr/regr_slope over three windows to show an elasticity that is not stable.",
+      "Cross-checks instead of trust: thirteen tests recompute the LRT's last-quarter YoY, MRT Kajang's weekday index, the holiday ratio, the Kelana Jaya suspension episode and the baseline itself in pandas from the CSV, without DuckDB, and assert that contributions sum to the network figure.",
+      "A one-page memo with three recommendations, and a site that shows every query with its SQL and its result, so a reader can check the reasoning rather than the conclusion.",
+    ],
+    numbers: [
+      { label: "Warehouse", value: "27,007 line-days · 14 lines · 2019 → Aug 2026" },
+      { label: "Queries", value: "23 in 6 questions" },
+      { label: "Absorbed in the Nov 2022 suspension", value: "5% of ~170,000 trips a day" },
+      { label: "MRT Putrajaya full opening", value: "+87,000 weekday trips, +10.7% network" },
+      { label: "Weekday holiday", value: "LRT 53% · KTM Intercity 2.2×" },
+      { label: "RON95 step, Sep 2025", value: "no rise; growth −1 to −4 pp" },
+    ],
+    decision: {
+      title: "The fuel result is published because it is unstable",
+      body: "The textbook says dearer petrol fills the trains, and Malaysia offered two natural experiments: RON97 floats weekly, and RON95 stepped from RM2.05 to RM2.60 for unsubsidised drivers on 30 September 2025. The step was followed by lower year-on-year growth on every Klang Valley line but one. The weekly RON97 regression, detrended with year-on-year changes on both sides, gives a negative elasticity — and −0.39, −0.18 or −0.12 depending on whether it starts in 2023, 2024 or 2025. A single window would have produced a confident, wrong number. The query reports all three, and the memo says what it means: a trend artefact, not an elasticity, and not a lever the operator should plan on. The same discipline shaped the rest — the LRT Shah Alam feed carries zeros for three months before its first real count, Rapid Bus Kuantan reports zeros after it closed, a declared holiday for the ASEAN Summit is missing from the holidays package, and the CNY tail runs past three days; each was found because a result looked wrong, and each is encoded in the warehouse rather than patched in a query.",
+    },
+    limits: [
+      "A trip is a boarding on one line; a journey with a transfer is two trips, and the transfer rate is not in the data.",
+      "Disruptions are inferred from the counts and have no recorded cause. The November 2022 Kelana Jaya suspension is public record; most episodes on KTM Intercity, at 3,000 trips a day, are the noise of a small service.",
+      "The before/after tests use one control line and eight-week windows: honest comparisons, not causal estimates.",
+      "No fares, revenue or costs. Farebox is what the counts imply for the farebox, not the farebox itself.",
+    ],
+  },
 ];
 
 export type Supporting = {
