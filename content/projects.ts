@@ -296,6 +296,46 @@ export const projects: Project[] = [
       "The open-source projects were not consulted. This is a test of public evidence against a generic control standard, not a judgement about their software; several deliberately trade formal approval for maintainer trust.",
     ],
   },
+  {
+    slug: "basket",
+    name: "Basket",
+    category: "Business intelligence",
+    group: "Business intelligence",
+    headline: "Where the cost of living is rising, and in what",
+    oneLine:
+      "A Power BI model of Malaysia's Consumer Price Index — every month since 2010, every state, the full MCOICOP basket down to 101 classes — as a star schema with a marked date table, nineteen DAX measures, and a file of expected values computed independently so the model could be checked while it was built.",
+    result: { value: "1.9%", label: "headline inflation in August 2026 — but 2.6% in Negeri Sembilan and 0.5% in Sarawak, and food 3.5% in Johor against −0.1% in Kelantan" },
+    stack: ["Power BI", "DAX", "pandas", "data.gov.my"],
+    repo: "https://github.com/direenvy/basket",
+    image: "/projects/basket.png",
+    extraImage: { src: "/projects/basket-pages.png", alt: "Basket's four pages: Overview, By state, What got expensive, Explorer" },
+    problem:
+      "A national inflation print is one number for a country where prices move differently by state and by what you buy. A retail pricing team or a household-budget officer needs the rate for their state and their basket, for the latest month, against the national figure — and needs to trust the number. Power BI is the tool such teams have; the question is whether the model behind the report is right.",
+    approach: [
+      "Four DOSM datasets (CPI by division, group and class nationally; by state × division) and the MCOICOP lookup, fetched and shaped in pandas into a star schema: FactCPI at one grain (month × state × category, 76,456 rows), DimDate, DimGeography, DimCategory with the ragged hierarchy carried honestly — a Level column and the parents' names on every row, because state data stops at divisions and class data is national only.",
+      "Nineteen DAX measures: the index, year on year, month on month, three-month annualised pace, change since December 2019, the gap to the national rate and to the headline in percentage points, ranks, and a title measure. Time intelligence over a marked date table; the pre-pandemic base is a flag on the date table, not a hard-coded date in every measure.",
+      "Expected values first. The build script computes the headline, every division's YoY, every state's overall and food YoY, and the classes that rose and fell most since December 2019, and writes them to expected.json. The report was built against them, so a relationship the wrong way round or an unmarked date table showed up as a wrong number rather than a plausible one.",
+      "Four pages: the headline and the divisions; states ranked with the gap to the national rate; the ten classes that rose most and the ten that fell, with a division › group › class matrix; and an explorer that overlays any states for any of 162 categories.",
+    ],
+    numbers: [
+      { label: "Headline, Aug 2026", value: "1.93% YoY · 0.29% MoM" },
+      { label: "Since Dec 2019", value: "+12.4%" },
+      { label: "State spread", value: "2.6% N. Sembilan · 0.5% Sarawak" },
+      { label: "Food", value: "3.5% Johor · −0.1% Kelantan" },
+      { label: "Biggest rise since 2019", value: "Jewellery +132%" },
+      { label: "Model", value: "76,456 facts · 3 dimensions · 19 measures" },
+    ],
+    decision: {
+      title: "A division has its own index, and the average of its classes is not it",
+      body: "The class matrix nests classes under groups under divisions, and Power BI will happily put a number on the division row — the average of the class indices. For Alcoholic Beverages & Tobacco that average is 2.2%; the division's own rate, a separate row in DOSM's data, is 2.8%. The index is never summed or averaged across categories, so the matrix shows nothing on the parent rows and the Overview chart reads the division rows directly. The same discipline caught two other quiet errors: a state rank that came out as 1 for every state, because the State column's sort-by column was silently part of every row's filter; and a monthly date table that Power BI refused to mark as a date table, which is why DimDate is daily with the facts on the first of each month.",
+    },
+    limits: [
+      "State detail stops at divisions, so which class is driving Johor's food inflation cannot be answered from this data; the class view is national.",
+      "No basket weights are published with these series, so the report shows each division's own rate, not its contribution to the headline.",
+      "An index says how fast prices move, not what they are; Sarawak's low inflation does not mean Sarawak is cheap.",
+      "Power BI Service needs a work or school account to publish; the deliverable is the committed .pbix and the page screenshots until a published link exists.",
+    ],
+  },
 ];
 
 export type Supporting = {
