@@ -347,6 +347,7 @@ export const projects: Project[] = [
     result: { value: "5%", label: "of a 170,000-trip daily shortfall was absorbed by other lines when the LRT Kelana Jaya line was suspended in November 2022 — the interchange lines fell with it" },
     stack: ["DuckDB", "SQL", "pandas", "pytest", "Next.js"],
     repo: "https://github.com/direenvy/farebox",
+    live: "https://farebox.vercel.app",
     image: "/projects/farebox.png",
     extraImage: { src: "/projects/farebox-episodes.png", alt: "Farebox: the gaps-and-islands query that groups disrupted days into episodes, with its SQL and the resulting table" },
     problem:
