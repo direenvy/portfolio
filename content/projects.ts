@@ -388,6 +388,7 @@ export const projects: Project[] = [
     result: { value: "33 of 44", label: "segregation-of-duties conflicts were in the role model itself — a design deficiency the generator never planted, found by the test and added to the ground truth" },
     stack: ["pandas", "NumPy", "pytest", "Next.js"],
     repo: "https://github.com/direenvy/sentry",
+    live: "https://sentry-ruddy.vercel.app",
     image: "/projects/sentry.png",
     extraImage: { src: "/projects/sentry-findings.png", alt: "Sentry's findings: leaver de-provisioning, roles designed with an SoD conflict, unapproved grants, generic privileged accounts, orphan accounts, access accumulating across moves" },
     problem:
