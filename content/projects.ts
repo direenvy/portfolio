@@ -377,6 +377,46 @@ export const projects: Project[] = [
       "No fares, revenue or costs. Farebox is what the counts imply for the farebox, not the farebox itself.",
     ],
   },
+  {
+    slug: "sentry",
+    name: "Sentry",
+    category: "IT audit",
+    group: "IT audit",
+    headline: "Logical access and segregation of duties, tested against an answer key",
+    oneLine:
+      "An IT audit of user access on four systems of a fictional company — 1,204 employees, 1,896 accounts, a year of grants and expense claims — generated from a seed with 195 control failures recorded. Seven access controls and fraud analytics tested over the full population, every exception registered, the controls rated, a findings memo, and the tests scored: 195 of 195 found, nothing else flagged.",
+    result: { value: "33 of 44", label: "segregation-of-duties conflicts were in the role model itself — a design deficiency the generator never planted, found by the test and added to the ground truth" },
+    stack: ["pandas", "NumPy", "pytest", "Next.js"],
+    repo: "https://github.com/direenvy/sentry",
+    image: "/projects/sentry.png",
+    extraImage: { src: "/projects/sentry-findings.png", alt: "Sentry's findings: leaver de-provisioning, roles designed with an SoD conflict, unapproved grants, generic privileged accounts, orphan accounts, access accumulating across moves" },
+    problem:
+      "Logical access is the other half of the IT general controls Gatekeeper left untested: joiners, leavers, movers, privileged accounts, dormancy, authorised changes and segregation of duties. Real identity-and-access extracts are never public, so a synthetic one is the only honest option — and it comes with something a real audit never has: the answer key. If the generator records every failure it plants, the tests can be scored on what they find and what they flag that was not there.",
+    approach: [
+      "A seeded generator builds a clean population first — an HR master with hires, leavers and movers; personal, service and generic accounts on ERP, HRIS, payroll and AD; entitlements from a role-based access model; an access-change log with tickets and approvers; an exceptions register; 10,971 log-normal expense claims — then plants 149 failures and writes each to injected.json.",
+      "Seven full-population tests, one per control, mapped to COBIT DSS05.04 / DSS06.03, ISO 27001 A.5.3 / 5.15 / 5.16 / 5.18 / 8.2 and the SOX logical-access objectives: accounts without an employee, leavers not disabled by the next business day, entitlements outside the role model without an approved exception, privileged access on generic accounts or wrong roles, dormancy over 90 days, grants without an approved ticket or approved by the beneficiary or requester, and twelve SoD rules across systems.",
+      "Fraud analytics on the claims: Benford's law by department with Nigrini's mean absolute deviation, claims just under the RM1,000 approval limit per claimant, duplicates, self-approval, round amounts.",
+      "Ratings (High above a 5% tolerable rate or three High-severity exposures; Medium; Low), an exceptions register of 195 items with the ground-truth kind each matched, a findings memo with root causes and recommendations, and a scoring table. pytest checks that the generator is byte-for-byte deterministic and that every test finds exactly its ground truth; CI regenerates and fails on drift.",
+    ],
+    numbers: [
+      { label: "Population", value: "1,896 accounts · 2,681 entitlements · 217 grants · 10,971 claims" },
+      { label: "Exceptions", value: "195, full population" },
+      { label: "Ratings", value: "5 High · 2 Medium" },
+      { label: "Leavers still enabled", value: "8 of 120, up to 268 days" },
+      { label: "SoD conflicts by design", value: "33 of 44, in three roles" },
+      { label: "Tests scored", value: "195 of 195 found, 0 extra" },
+    ],
+    decision: {
+      title: "The tests found failures nobody planted, and the ground truth was extended rather than the model fixed",
+      body: "The first scoring run showed the SoD test flagging 44 conflicts against 10 planted. The extra 34 were not a bug: the role model I had written for the fictional company gave Treasury Officers payment run and bank reconciliation, AP Supervisors invoice entry and approval, Payroll Managers payroll approval and bank-file release. That is exactly what a real SoD review finds — a design deficiency, where the remediation is to split roles rather than to fix individuals — and it is a better finding than any of the planted ones. The easy move was to edit the roles so the score came out clean. Instead the ground truth gained a second kind, design, and later two more: process, for the four grants the workflow let the ERP owner approve to his own account, and consequence, for a still-enabled leaver's account being dormant too and a mover's kept HR rights conflicting with the payroll run he now performs. The scoring table separates the kinds so the reader can see which failures were planted and which the tests found on their own. On the analytics side, χ² was demoted to a secondary statistic after it declared Operations' 5,543 claims nonconforming on an immaterial deviation — a sample-size artefact Nigrini's MAD does not have.",
+    },
+    limits: [
+      "The company is fictional and the failure rates were chosen, so the ratings describe the tests' behaviour on this data, not any real organisation's control environment.",
+      "The tests assume clean identifiers — one employee ID joins HR to every system. Real extracts need an identity-matching step first, and that is where real audits spend their time.",
+      "An exceptions-register entry is taken as a valid mitigating control; a real audit tests whether the mitigation operates.",
+      "The clean claims are log-normal by construction, so their Benford conformity is partly built in; the Sales result is the test working on the part that was not.",
+    ],
+  },
 ];
 
 export type Supporting = {
