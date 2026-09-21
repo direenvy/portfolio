@@ -197,6 +197,7 @@ export const projects: Project[] = [
       "Validate: eleven checks with severities. Errors (schema, duplicate or missing days, negatives, a shrunken snapshot) fail the run and publish nothing; warnings (freshness over 45 days, silent zeros, outliers) publish and stay visible on the page.",
       "Outliers are judged against the median of the same weekday over the previous eight weeks, because ridership drops by a quarter to a third at weekends and a day-over-day rule would flag every Saturday.",
       "Transform: wide to long parquet, DuckDB for the aggregation, JSON marts committed next to a static Next.js dashboard that Vercel rebuilds on the data commit. The repository is the database and git log is the audit trail.",
+      "Read afterwards as a control environment: a risk-and-controls matrix (docs/RACM.md, and /controls on the site) sets out eleven objectives — completeness, accuracy, timeliness, provenance, the publication gate, operation, change management, access, reproducibility, judgement, licence — with the risk, the control, its evidence, the test and the result against the repository. Eight effective; three gaps: the unprotected default branch Gatekeeper found, no monitor outside GitHub for a stopped schedule, and a publication gate proven only on synthetic data.",
     ],
     numbers: [
       { label: "Daily rows checked", value: "2,769 days × 14 modes" },
