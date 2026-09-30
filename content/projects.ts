@@ -101,6 +101,47 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "sitewatch-mobile",
+    name: "Sitewatch Mobile",
+    category: "Computer vision",
+    group: "Computer vision",
+    headline: "The same detector, on a phone, with no network at all",
+    oneLine:
+      "Sitewatch's hard-hat detector moved off the server and into an Android app: a 10 MB ONNX graph inside the APK, letterboxing and head decoding and suppression rewritten by hand in TypeScript, and the first real photo it was shown exposed the limitation the server build never had to face.",
+    result: { value: "192 ms", label: "inference on a 2020 mid-range phone — and 943 ms for the JPEG decode, which is the finding" },
+    stack: ["ONNX Runtime", "Expo / React Native", "TypeScript", "Ultralytics YOLO11"],
+    repo: "https://github.com/direenvy/sitewatch-mobile",
+    image: "/projects/sitewatch-mobile.png",
+    extraImage: { src: "/projects/sitewatch-mobile-missed.jpg", alt: "The photograph the app fails on: three helmeted workers attending a fourth who sits on the ground with his head bare, his hard hat on the concrete in front of him" },
+    problem:
+      "A construction site with no signal is exactly where a compliance check is most likely to be needed, and a detector that requires a round trip to a GPU is a detector that does not work in a basement. Moving it on-device is not a packaging exercise: onnxruntime-react-native hands you a tensor and nothing else, so every convention Ultralytics applies silently on both sides of the network has to be rebuilt by hand — and getting one wrong produces boxes that look plausible and sit in the wrong place.",
+    approach: [
+      "Exported YOLO11n to ONNX at both 512 and 320, then scored both on the full held-out split rather than guessing: export costs 0.003 mAP50, but 320 costs 6.7 points and drops the safety class from 0.897 to 0.838, so the app ships 512.",
+      "Rewrote the pipeline in TypeScript: letterbox with Ultralytics' grey 114 fill, a channel-major read of the [1, 4+nc, N] head whose boxes are in input pixels rather than normalised, and per-class non-maximum suppression.",
+      "Verified the port twice — unit tests on the pure arithmetic, then a line-for-line Python port run against Ultralytics' own predictions on real photos: 98.3% box agreement, every outlier explained by threshold-boundary resampling noise.",
+      "React Native cannot hand you pixels, so the image is resized natively first and only then decoded in JavaScript; ordering that correctly is the difference between a several-second decode and a manageable one.",
+      "Built and measured on a Samsung Galaxy A52 (Snapdragon 720G), which required patching two undocumented obstacles in the ONNX binding before it would run at all.",
+    ],
+    numbers: [
+      { label: "Inference, 512×512, on-device", value: "192 ms" },
+      { label: "JPEG decode in JavaScript", value: "943 ms" },
+      { label: "mAP50, ONNX vs PyTorch", value: "0.9042 vs 0.9070" },
+      { label: "Decoder agreement with Ultralytics", value: "98.3%" },
+      { label: "Model shipped inside the APK", value: "10 MB" },
+    ],
+    decision: {
+      title: "The neural network is the fast part. The JPEG decode is five times slower.",
+      body: "The design argued that resizing natively before decoding would make the JavaScript step cost a few tens of milliseconds. On the phone it costs 943 ms against 192 ms for the network itself — wrong by roughly thirtyfold. The ordering was necessary and insufficient: React Native runs on Hermes, which has no JIT, so a loop over 262,144 pixels stays interpreted. The bottleneck in an on-device vision app turned out to be not the model but the engine underneath the glue code.",
+    },
+    limits: [
+      "The first real photograph it was shown — three helmeted workers helping a fourth who sits on the ground, head bare, his helmet on the concrete — scores 100% compliance. His strongest activation anywhere in the image is 0.044 against a 0.35 threshold; the original PyTorch weights miss him too, so this is the detector, not the port.",
+      "He is seated with his head bowed and his arm across his forehead, and the 19,745 training images are overwhelmingly upright workers at working distance. Higher resolution, test-time augmentation and tight cropping lift him only to 0.13. No threshold rescues him — only training data of people sitting, lying and turned away would, which is precisely the data a safety system is least likely to have, because those photographs are of accidents.",
+      "Measuring the full split at every threshold did show the shipped 0.35 is arguably too high for a safety product: 0.10 catches 41 more violations at 76% precision. F1 weights a missed violation and a false alarm equally, which is a choice rather than a law.",
+      "One photo at a time. At roughly a second end to end it suits a supervisor taking pictures and is useless for anything continuous; a native decode would be needed first.",
+      "Android only, and a debug build — there is no signed release, no Play listing and no iOS target.",
+    ],
+  },
+  {
     slug: "trackside",
     name: "Trackside",
     category: "Data collection and analysis",
