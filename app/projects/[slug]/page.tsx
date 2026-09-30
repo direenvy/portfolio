@@ -14,7 +14,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/projects/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const p = projects.find((x) => x.slug === slug);
-  return p ? { title: `${p.name} — ${p.headline}`, description: p.oneLine, openGraph: { images: [p.image] } } : {};
+  return p ? { title: `${p.name} — ${p.headline}`, description: p.oneLine, ...(p.image ? { openGraph: { images: [p.image] } } : {}) } : {};
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -70,11 +70,13 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           </div>
         </header>
 
-        <div className="mx-auto px-5" style={{ maxWidth: "var(--page-max-width)" }}>
-          <div className="frame">
-            <Image src={p.image} alt={`${p.name} interface`} width={2880} height={2360} priority sizes="(max-width: 1440px) 100vw, 1440px" />
+        {p.image && (
+          <div className="mx-auto px-5" style={{ maxWidth: "var(--page-max-width)" }}>
+            <div className="frame">
+              <Image src={p.image} alt={`${p.name} interface`} width={2880} height={2360} priority sizes="(max-width: 1440px) 100vw, 1440px" />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="mx-auto px-5" style={{ maxWidth: "var(--content-max-width)" }}>
           <Section title="The problem">

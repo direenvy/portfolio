@@ -42,7 +42,10 @@ export default function Home() {
               All projects ›
             </Link>
           </div>
-          <ProjectCarousel projects={projects} />
+          {/* The carousel is a strip of screenshots, so it only carries projects that
+              have one. Sitewatch Mobile's only screenshot contained a third party's
+              copyrighted photograph and was withdrawn; its case study stands on text. */}
+          <ProjectCarousel projects={projects.filter((p) => p.image)} />
         </section>
 
         <About />

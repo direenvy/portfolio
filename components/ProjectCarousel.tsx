@@ -86,7 +86,7 @@ export default function ProjectCarousel({ projects }: { projects: Project[] }) {
               ))}
             </div>
             <div className="relative" style={{ aspectRatio: "16 / 10" }}>
-              <Image src={p.image} alt={`${p.name} interface`} fill sizes="(max-width: 1024px) 100vw, 800px" style={{ objectFit: "cover", objectPosition: "top" }} priority={index === 0} />
+              {p.image && <Image src={p.image} alt={`${p.name} interface`} fill sizes="(max-width: 1024px) 100vw, 800px" style={{ objectFit: "cover", objectPosition: "top" }} priority={index === 0} />}
             </div>
           </Link>
         </div>

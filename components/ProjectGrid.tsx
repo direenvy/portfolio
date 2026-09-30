@@ -12,7 +12,7 @@ export type Tile = {
   blurb: string;
   href: string;
   external: boolean;
-  image: string;
+  image?: string;
   fit: "cover" | "contain";
   links: { label: string; href: string; external: boolean }[];
 };
@@ -37,17 +37,23 @@ export default function ProjectGrid({ tiles, groups }: { tiles: Tile[]; groups: 
         {shown.map((t, i) => {
           const media = (
             <>
-              <Image
-                src={t.image}
-                alt={`${t.name} ${t.fit === "cover" ? "interface" : "figure"}`}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 460px"
-                style={{
-                  objectFit: t.fit,
-                  objectPosition: "top",
-                  padding: t.fit === "contain" ? 20 : 0,
-                }}
-              />
+              {t.image ? (
+                <Image
+                  src={t.image}
+                  alt={`${t.name} ${t.fit === "cover" ? "interface" : "figure"}`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 460px"
+                  style={{
+                    objectFit: t.fit,
+                    objectPosition: "top",
+                    padding: t.fit === "contain" ? 20 : 0,
+                  }}
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center" style={{ background: "var(--color-card, #f5f5f5)" }}>
+                  <span style={{ fontSize: 14, opacity: 0.55 }}>{t.name}</span>
+                </div>
+              )}
               <div className="tile-veil" aria-hidden="true">
                 <span className="tile-arrow">↗</span>
                 <p
