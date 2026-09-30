@@ -349,6 +349,7 @@ export const projects: Project[] = [
     result: { value: "1.9%", label: "headline inflation in August 2026 — but 2.6% in Negeri Sembilan and 0.5% in Sarawak, and food 3.5% in Johor against −0.1% in Kelantan" },
     stack: ["Power BI", "DAX", "pandas", "data.gov.my"],
     repo: "https://github.com/direenvy/basket",
+    live: "https://app.powerbi.com/view?r=eyJrIjoiNTE4MDY3YTktMTQyNC00NDY2LWI5Y2EtZGM3MTgxYjIzMTY1IiwidCI6IjBmZWQwM2EzLTQwMmQtNDYzMy1hOGNkLThiMzA4ODIyMjUzZSIsImMiOjEwfQ%3D%3D",
     image: "/projects/basket.png",
     extraImage: { src: "/projects/basket-pages.png", alt: "Basket's four pages: Overview, By state, What got expensive, Explorer" },
     problem:
@@ -375,7 +376,7 @@ export const projects: Project[] = [
       "State detail stops at divisions, so which class is driving Johor's food inflation cannot be answered from this data; the class view is national.",
       "No basket weights are published with these series, so the report shows each division's own rate, not its contribution to the headline.",
       "An index says how fast prices move, not what they are; Sarawak's low inflation does not mean Sarawak is cheap.",
-      "Power BI Service needs a work or school account to publish; the deliverable is the committed .pbix and the page screenshots until a published link exists.",
+      "The live link is a publish-to-web embed, which exposes the whole semantic model rather than only the visuals — anyone with the URL can query every row anonymously. Acceptable here because the data is already public DOSM CPI under CC BY 4.0, and not a pattern to reuse on anything else.",
     ],
   },
   {
