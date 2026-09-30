@@ -217,6 +217,47 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "kaunter-ii",
+    name: "Kaunter II",
+    category: "Retrieval / LLM",
+    group: "Retrieval / LLM",
+    headline: "The small model knew the answers. It could not sign the contract.",
+    oneLine:
+      "Kaunter’s retrieval, prompt and grader held fixed while only the generator changes: Gemini against Qwen2.5-1.5B and 0.5B, zero-shot and QLoRA fine-tuned on the teacher’s own accepted replies. Fine-tuning moved graded correctness from 33% to 91% while the model’s actual knowledge barely moved at all.",
+    result: { value: "33% → 91%", label: "graded correct after 340 distilled examples — while answer-present went only 90.6% to 93.4%, because what was missing was never the knowledge" },
+    stack: ["QLoRA / PEFT", "Qwen2.5", "Gemini API", "Next.js"],
+    repo: "https://github.com/direenvy/kaunter-ii",
+    live: "https://kaunter-ii.vercel.app",
+    problem:
+      "A help counter that cites its sources imposes a contract on the generator: quote the evidence, cite the chunk, refuse when the documents do not answer. A small open model can be perfectly capable of finding the answer and still fail that contract completely — and a single accuracy number cannot tell the two failures apart. So retrieval, prompt and grader are held fixed and only the generator is swapped, with a second measure reported beside correctness: whether the answer key appears anywhere in the raw reply at all.",
+    approach: [
+      "1,088 synthetic questions generated from 514 corpus chunks, one English and one Malay each so half cross the chunk’s own language, plus 60 unanswerable ones. Kaunter’s 119 hand-written questions are never touched — they are the test set.",
+      "Every question carries the top five chunks from Kaunter’s production retrieval, so no system can win or lose on what it was shown. The source chunk lands in the top five for 92.1% of synthetic questions, which checks the generator rather than the retriever.",
+      "Gemini answered 964 of them; 822 passed the same checks the evaluation applies and became the training set. Acceptance fell from 96.9% on the first 351 to 85.3% overall, because the later material is sampled railway-law text that quotes less cleanly.",
+      "QLoRA on a 6 GB laptop GPU: 4-bit NF4 base, rank 16 on every projection, completion-only loss. Peak VRAM 2.36 GB, 16 to 42 minutes a run. Both students trained at 340 and 822 examples to get a data-scaling point rather than a single number.",
+      "Seven systems scored on the same 119 questions by the same grader, which verifies every quote verbatim against the chunk it cites.",
+    ],
+    numbers: [
+      { label: "Gemini flash-lite (teacher)", value: "96.3%" },
+      { label: "Qwen2.5-1.5B zero-shot", value: "33.3%" },
+      { label: "Qwen2.5-1.5B fine-tuned (340)", value: "90.7%" },
+      { label: "Zero-shot: knew but could not cite", value: "60 of 108" },
+      { label: "Teacher replies accepted", value: "822 of 964" },
+    ],
+    decision: {
+      title: "Zero-shot, the smaller model scored higher. It was an artefact.",
+      body: "0.5B beat 1.5B zero-shot, 48.1% against 33.3%, which reads as the smaller model being better. It was not: 0.5B’s answer-present rate was far lower (72.6% against 90.6%) and it verified 0.0% of its quotes — every quote-shaped string it produced appeared nowhere in the sources. It simply emitted citation-shaped text more often by accident and collected the marks. Teach both the format and the ranking inverts to the honest one, 90.7% against 75.0%. A zero-shot accuracy number on a protocol-bound task measures luck at formatting, which is why answer-present is reported beside it.",
+    },
+    limits: [
+      "The teacher is not beaten. Gemini holds 96.3% at 1.08s median against the best student’s 90.7% at 4.51s — and that is the student on an RTX 4050, not a phone. At $0.18 per thousand queries the case for going local is offline operation and data residency, not quality or cost.",
+      "More data was worse for the bigger model: 822 examples took 1.5B from 90.7% to 87.0% while its evaluation loss improved 0.287 to 0.273. The loss curve gave no warning. Reported as measured rather than showing only the better run.",
+      "Every system does worse in Malay, and the gap widens as the model shrinks — 9 points for Gemini, 17 for the fine-tuned 0.5B. Wrong direction for a Kuala Lumpur help counter, on only 18 Malay test questions.",
+      "The grader is the instrument. It cannot tell a well-cited wrong answer from a right one, and citation relevance tops out at 69.8% even for the teacher.",
+      "108 answerable questions, one seed, one hyperparameter setting. Differences under about five points are not meaningful, and the 340-versus-822 result rests on four questions.",
+      "Refusal is mostly retrieval, not the model: Kaunter’s score threshold turns away almost every unanswerable question before a model runs, so every system’s 8 of 8 is that threshold working.",
+    ],
+  },
+  {
     slug: "turnstile",
     name: "Turnstile",
     category: "Data engineering",
